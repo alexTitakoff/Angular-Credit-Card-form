@@ -1,0 +1,98 @@
+/*input.ng-invalid.ng-dirty {
+	background-color: #FA787E;
+}
+
+input.ng-valid.ng-dirty {
+	background-color: #78FA89;
+}
+*/
+
+html {
+	background: #EDEDED;
+}
+ul {	
+	margin:0;
+}
+
+
+.uppercase {
+	text-transform: uppercase;
+}
+
+input {
+	background: #fff;
+	color: #000;
+	width: 300px;
+	box-shadow: none;
+	border: none;
+	padding: 7px;
+}
+#card_body {
+	position: absolute;
+	margin-top: 20%;
+	margin-left: 27%;
+
+	height: 64px;
+	width: 226px;/*206*/
+	border-radius: 12px;
+	overflow: hidden;
+	overflow: hidden;
+	background: #fff;
+}
+
+#cardnumber {
+	margin-bottom: 20px;
+	border-bottom: 1px solid #477F46;
+	transition: all 0.2s linear;
+	margin-left: 20px;
+	margin-top: 10px;
+	display: inline-block;
+	width: 167px;
+
+
+
+}
+
+#cardnumber:focus {
+	border-bottom: 3px solid #477F46;
+	transition: all 0.2s linear;
+}
+#secure {
+	margin-bottom: 20px;
+	border-bottom: 1px solid #477F46;
+	transition: all 0.2s linear;
+	margin-left: 41px;
+	margin-top: 0px;
+	width: 63px;
+	display: inline-block;
+}
+
+
+#secure:focus {
+	border-bottom: 3px solid #477F46;
+	transition: all 0.2s linear;
+}
+
+
+#type_icon {
+	display: block;
+
+	width: 60px;
+	height: 92px;
+	background-size: contain !important;
+	background-repeat: no-repeat !important;
+	position: absolute;
+	top: 0px;
+	left: 420px;
+}
+
+/*
+#card_body_ramka {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	border: 1px solid #984D4D;
+	border-radius: 12px;
+	z-index: -1;
+
+}*/
