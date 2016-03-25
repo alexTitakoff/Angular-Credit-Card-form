@@ -4,13 +4,26 @@ angular.module('app', []);
 angular.module('app').controller
 ( 'MainCtrl'
   , function($scope,$locale) {
-    $scope.currentYear = new Date().getFullYear()
-    $scope.currentMonth = new Date().getMonth() + 1
-    $scope.months = $locale.DATETIME_FORMATS.MONTH
+
+
     $scope.ccinfo = {type:undefined} 
     $scope.save = function(data){
       if ($scope.paymentForm.$valid){
           console.log(data) // valid data saving stuff here
+          // document.getElementById("check").innerHTML = Check:<br> Срок действия карты:<br> data['month']/data['year']
+          $scope.data = [{
+            year:  data['year'],
+            month: data['month'],
+            type: data['type'],
+            firstname: data['firstname'],
+            lastname: data['lastname'],
+            number: data['number'],
+            val: data['val'],
+            sum: data['sum']
+          }]
+          
+
+
         }
       }
     }
@@ -43,38 +56,19 @@ angular.module('app').directive
 }
 )
 
-angular.module('app').directive
-( 'cardExpiration'
-  , function(){
-    var directive =
-    { require: 'ngModel'
-    , link: function(scope, elm, attrs, ctrl){
-      scope.$watch('[ccinfo.month,ccinfo.year]',function(value){
-        ctrl.$setValidity('invalid',true)
-        if ( scope.ccinfo.year == scope.currentYear
-         && scope.ccinfo.month <= scope.currentMonth
-         ) {
-          ctrl.$setValidity('invalid',false)
-      }
-      return value
-    },true)
-    }
-  }
-  return directive
-}
-)
 
-angular.module('app').filter
-( 'range'
-  , function() {
-    var filter = 
-    function(arr, lower, upper) {
-      for (var i = lower; i <= upper; i++) arr.push(i)
-        return arr
-    }
-    return filter
-  }
-  )
+
+// angular.module('app').filter
+// ( 'range'
+//   , function() {
+//     var filter = 
+//     function(arr, lower, upper) {
+//       for (var i = lower; i <= upper; i++) arr.push(i)
+//         return arr
+//     }
+//     return filter
+//   }
+//   )
 
 
 

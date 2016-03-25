@@ -16,6 +16,18 @@
     </div>
 
     <form novalidate name="paymentForm">
+      <div id="oplata">
+        
+        <input  ng-model="ccinfo.sum" id="sum" name="summary" type="text">
+        <select ng-model="ccinfo.val" name="val" id="val">
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="RUB">RUB</option>
+
+        </select>
+
+        <p>Пожалуйста введите номер карты</p>
+      </div>
 
 
       <input id="cardnumber" 
@@ -24,7 +36,7 @@
       ng-model="ccinfo.number"
       required
       data-credit-card-type
-      data-ng-pattern="/^[0-9]\s[0-9]+$/"
+      
       data-ng-minlength="15"
       maxlength="19"
       placeholder="0000-0000-0000-0000" format-card/>
@@ -45,71 +57,140 @@
       data-ng-minlength="3"
       maxlength="4">
       <br/>
+
+      <select id="month" ng-model="ccinfo.month" name="month" data-card-expiration required>
+        <option disabled selected value="">MM</option>
+        <option value="01">01</option>
+        <option value="02">02</option>
+        <option value="03">03</option>
+        <option value="04">04</option>
+        <option value="05">05</option>
+        <option value="06">06</option>
+        <option value="07">07</option>
+        <option value="08">08</option>
+        <option value="09">09</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+      </select>
+      
+
+      <select id="year" ng-model="ccinfo.year" name="year" required>
+        <option disabled selected value="">YY</option>
+        <option>14</option>
+        <option>15</option>
+        <option>16</option>
+        <option>17</option>
+        <option>18</option>
+        <option>19</option>
+        <option>20</option>
+        <option>21</option>
+        <option>22</option>
+      </select>
+
+
+
       <div id="cardtype">{{ccinfo.type}}</div>
 
 
-      <input  class="uppercase" type="text"
-      name="lastname"
-      placeholder="Firstname"
-      required
-      data-ng-minlength="2"
-      data-ng-pattern="/^[A-Z]+$/"
-      >
 
 
       <input  class="uppercase" type="text"
-      name="firtname"
-      placeholder="Lastname"
-      required
-      data-ng-minlength="2"
-      data-ng-pattern="/^[A-Z]+$/"
-      ><br>
+      name="lastname" ng-model="ccinfo.lastname 
+      "
+      placeholder="lastname"
+      data-ng-pattern="/^[A-Za-z]+$/"
+      required >
+
+
+      <input  class="uppercase" type="text"
+      name="firstname" ng-model="ccinfo.firstname  "
+      placeholder="firstname"
+      data-ng-pattern="/^[A-Za-z]+$/"
+      required ><br>
+
+      <button id="submit" ng-click="paymentForm.submitAttempt=true;save(ccinfo)" type="submit">Оплатить</button>
+      
+      <div id="errors_block">
+
+
+
+        <ul id="card_errors" ng-show="paymentForm.submitAttempt">
+          <li ng-show="paymentForm.creditCard.$error.minlength">Номер крдитной карты должен содежать 15-19 символов</li>
+
+          <li ng-show="paymentForm.creditCard.$error.invalid">Кредитная карта должна быть представлена одной из компаний: Visa, Mastercard, American Express, Dinners или Discover</li>
+          <li ng-show="paymentForm.creditCard.$error.required">Пожалуйста, обязательно для заполнения</li>
+        </ul>
+
+
+        <ul ng-show="paymentForm.submitAttempt && !paymentForm.$valid">
+          <li ng-show="paymentForm.month.$error.required">Пожалуйста укажите месяц срока действия карты</li>
+
+        </ul>
+
+        <ul ng-show="paymentForm.submitAttempt && !paymentForm.$valid">
+          <li ng-show="paymentForm.year.$error.required">Пожалуйста укажите год срока действия карты</li>
+          
+        </ul> 
+
+        <ul ng-show="paymentForm.submitAttempt && !paymentForm.$valid">
+          <li ng-show="paymentForm.lastname.$error.required">Пожалуйста укажите Вашу фамилию</li>
+          <li ng-show="paymentForm.lastname.$error.pattern">Пожалуйста только латинницей</li>
+          
+        </ul> 
+
+        <ul ng-show="paymentForm.submitAttempt && !paymentForm.$valid">
+          <li ng-show="paymentForm.firstname.$error.required">Пожалуйста укажите Ваше имя</li>
+          <li ng-show="paymentForm.firstname.$error.pattern">Пожалуйста только латинницей</li>
+          
+        </ul> 
 
 
 
 
 
-      <ul ng-show="paymentForm.submitAttempt && !paymentForm.$valid">
-        <li ng-show="paymentForm.creditCard.$error.minlength">Credit card must be 15-19 digits</li>
-        <li ng-show="paymentForm.creditCard.$error.pattern">Credit card must consist of only numbers</li>
-        <li ng-show="paymentForm.creditCard.$error.invalid">Credit card must be a valid Amex, Visa, Discover, or Master Card</li>
-        <li ng-show="paymentForm.creditCard.$error.required">Credit card required</li>
-      </ul>
+        <ul ng-show="paymentForm.submitAttempt && !paymentForm.$valid">
 
-      <ul ng-show="paymentForm.submitAttempt && !paymentForm.$valid">
-        <li ng-show="paymentForm.securityCode.$error.pattern">Security code must contain only numbers</li>
-        <li ng-show="paymentForm.securityCode.$error.minlength">Security code must be 3-4 digits</li>
-        <li ng-show="paymentForm.securityCode.$error.required">Security code required</li>
-      </ul>
+          <li ng-show="paymentForm.securityCode.$error.minlength">Секретный код должен содежать 3-4 символа</li>
+          <li ng-show="paymentForm.securityCode.$error.required">Пожалуйста укажите секретный код
+            <div id="tooltip"><img src="secure.jpg" alt=""></div>
+          </li>
+        </ul> 
 
 
+        <ul ng-show="paymentForm.submitAttempt && paymentForm.$valid">
 
-      <select ng-model="ccinfo.month" name="month" data-card-expiration required>
-        <option disabled selected value="">Month</option>
-        <option ng-repeat="month in months" value="{{$index+1}}" > {{$index+1}} - {{month}}</option>
-      </select>
-      <br/>
+          <li  id="good" class="tada animated"><img src="good.png" alt=""></li>
+        </ul> 
 
-      <ul ng-show="paymentForm.submitAttempt && !paymentForm.$valid">
-        <li ng-show="paymentForm.month.$error.required">Expiration month required</li>
-      </ul>
-
-      <select ng-model="ccinfo.year" name="year" required>
-        <option disabled selected value="">Year</option>
-        <option ng-repeat="year in [] | range:currentYear:currentYear+13">{{year}}</option>
-      </select>
+        
 
 
-      <br/>
-      <ul ng-show="paymentForm.submitAttempt && !paymentForm.$valid">
-        <li ng-show="paymentForm.year.$error.required">Expiration year required</li>
-        <li ng-show="paymentForm.month.$error.invalid">Provided expiration date is invalid</li>
-      </ul>
 
 
-      <button ng-click="paymentForm.submitAttempt=true;save(ccinfo)" type="submit">Submit</button>
+
+
+      </div>
+
+
+
+
+      
 
     </form>
+
+    <div ng-repeat="dat in data" id="check">
+      Your Check: <br><br>
+      Сумма к оплате: {{dat.sum}} {{dat.val}}<br>
+      Карта:  <br>
+      Номер {{dat.number}}<br>
+      Тип {{dat.type}}<br>
+      Владелец {{dat.lastname  | uppercase}} {{dat.firstname  | uppercase}}<br>
+      
+      Срок действия до {{dat.month}}/{{dat.year}} <br>
+      
+      
+    </div>
 
 
   </div>

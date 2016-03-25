@@ -17,8 +17,32 @@
 
 // };
 
+// /// АКтивность поля ввода суммы 
+// document.getElementById("sum").disabled = true;
+// var active = document.getElementById("btn");
+// active.onclick = function() {
+
+//     document.getElementById("sum").disabled = false;
+
+// };
+
+
 
 cardNumber= document.getElementById("cardnumber");
+secureCode = document.getElementById("secure");
+sum = document.getElementById("sum");
+
+secureCode.onkeyup = secureCode.onchange = secureCode.onpaste= function(){
+    this.value= this.value.replace(/[^\d]/g, "").replace(/\d{4}(?!$|(?:\s$))/g, "$& ")
+    var cardType = document.getElementById("cardtype");
+
+};
+
+sum.onkeyup = sum.onchange = sum.onpaste= function(){
+    this.value= this.value.replace(/[^\d]/g, "").replace(/\d{15}(?!$|(?:\s$))/g, "$& ")
+    var cardType = document.getElementById("cardtype");
+
+};
 cardNumber.onkeyup = cardNumber.onchange = cardNumber.onpaste= function(){
 	this.value= this.value.replace(/[^\d]/g, "").replace(/\d{4}(?!$|(?:\s$))/g, "$& ")
 	var cardType = document.getElementById("cardtype");
@@ -44,7 +68,7 @@ cardNumber.onkeyup = cardNumber.onchange = cardNumber.onpaste= function(){
 
         // Выпрыгивание иконки
         if (iconCard.style.left !== '420px' && valType !== "") {
-        	iconCard.style.transition =  'left 0.4s linear';
+        	iconCard.style.transition =  'left 0.6s linear';
         	iconCard.style.left =  '268px';
 
         	setTimeout(function() {	
