@@ -294,3 +294,28 @@ input {
 	/* height: 40px; */
 	padding: 20px;
 }
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 1500px) {
+
+
+	#tooltip {
+		position: absolute;
+		width: 16%;
+		color: #FFFFFF;
+		background: #FFFFFF;
+		line-height: 28px;
+		text-align: center;
+		border-radius: 8px;
+		top: 57.5%;
+		left: 38.5%;
+		font-family: "CuprumRegular";
+		font-size: 15px;
+		z-index: 200;
+		position: fixed;
+		height: 340px;
+	}
+
+
+}
+
